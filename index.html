@@ -95,9 +95,8 @@
             line-height: 1.4;
         }
 
-        /* Layout Grid */
+        /* Grid */
         .primary-tape { margin-bottom: 120px; }
-
         .archive-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -129,9 +128,7 @@
         .primary-artwork { aspect-ratio: 16/9; }
         .archive-artwork { aspect-ratio: 1/1; }
 
-        @media (min-width: 1024px) {
-            .primary-artwork { aspect-ratio: 21/9; }
-        }
+        @media (min-width: 1024px) { .primary-artwork { aspect-ratio: 21/9; } }
 
         .art-img {
             width: 100%;
@@ -142,13 +139,11 @@
             filter: grayscale(15%) contrast(105%);
         }
 
-        /* Hover states for PC */
         @media (hover: hover) {
             .card-trigger:hover .art-img { transform: scale(1.04); filter: grayscale(0%); }
             .card-trigger:hover .artwork-wrapper { border-color: var(--accent); }
         }
 
-        /* Card Typography */
         .meta {
             font-size: 10px;
             text-transform: uppercase;
@@ -169,6 +164,55 @@
         }
 
         .badge { font-size: 9px; border: 1px solid var(--accent); padding: 2px 10px; letter-spacing: 1px; }
+
+        /* SOCIAL MATRIX (Brackets) */
+        .social-matrix {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1rem, 5vw, 3rem);
+            margin: 120px 0 60px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-bracket {
+            position: relative;
+            padding: 25px 45px;
+            text-decoration: none;
+            color: var(--text);
+            transition: var(--transition);
+            min-width: 280px;
+        }
+
+        .social-bracket::before, .social-bracket::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 15px;
+            height: 100%;
+            border: 1px solid var(--accent);
+            transition: var(--transition);
+        }
+
+        .social-bracket::before { left: 0; border-right: none; }
+        .social-bracket::after { right: 0; border-left: none; }
+
+        .social-bracket:hover { background: rgba(201, 168, 76, 0.05); transform: translateY(-5px); }
+        .social-bracket:hover::before, .social-bracket:hover::after { width: 30px; }
+
+        .social-label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .social-stats { display: flex; gap: 25px; font-family: 'Cormorant Garamond', serif; }
+        .stat-item { display: flex; flex-direction: column; }
+        .stat-value { font-size: 1.6rem; line-height: 1; color: var(--text); }
+        .stat-name { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.5; margin-top: 5px; }
 
         /* MODAL SYSTEM */
         #modal-overlay {
@@ -259,10 +303,7 @@
             display: inline-block;
         }
 
-        .play-btn:hover { background: #e1bd5a; transform: scale(1.05); }
-
         footer {
-            margin-top: 150px;
             padding: 80px 0;
             border-top: 1px solid rgba(242, 237, 232, 0.08);
             text-align: center;
@@ -279,11 +320,10 @@
         .art-0003 { background-image: url('https://i.ibb.co/XxC80wj9/image.jpg'); }
         .art-0004 { background-image: url('https://i.ibb.co/7xnkyW1M/image.jpg'); }
 
-        /* Tablet/Mobile Patch */
         @media (max-width: 768px) {
             .primary-artwork { aspect-ratio: 1/1; }
             .container { padding: 50px 24px; }
-            header { padding-left: 20px; }
+            .social-bracket { width: 100%; min-width: unset; }
         }
     </style>
 </head>
@@ -291,7 +331,6 @@
 
     <div id="texture-overlay"></div>
 
-    <!-- MODAL -->
     <div id="modal-overlay" onclick="closeModal()">
         <button class="close-modal">✕</button>
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -313,32 +352,30 @@
         </header>
 
         <main>
-            <!-- PRIMARY TAPE (TOP) -->
             <button class="card-trigger primary-tape" onclick="openModal('primary')">
                 <div class="artwork-wrapper primary-artwork">
                     <div class="art-img art-primary"></div>
                     <div style="position: absolute; bottom: 25px; left: 25px; right: 25px;">
-                        <span class="meta" style="color:#fff;">Musical CV / Press Kit</span>
+                        <span class="meta" style="color:#fff;">Press Kit / Musical CV</span>
                         <h2 class="title" style="color:#fff; font-size: clamp(1.6rem, 5vw, 2.8rem);">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
                     </div>
                 </div>
             </button>
 
             <div class="archive-grid">
-                <!-- Archive 0001 -->
+                <!-- 0001 -->
                 <button class="card-trigger" onclick="openModal('0001')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0001"></div>
-                        <!-- Custom Texture Overlay for #0001 -->
                         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; font-size: 8px; opacity: 0.15; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond'; line-height: 1.4; color: #fff;">
-                            MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
+                            MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
                         </div>
                     </div>
                     <div class="meta">Archive #0001</div>
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
 
-                <!-- Archive 0002 -->
+                <!-- 0002 -->
                 <button class="card-trigger" onclick="openModal('0002')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0002"></div>
@@ -347,7 +384,7 @@
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
 
-                <!-- Archive 0003 -->
+                <!-- 0003 -->
                 <button class="card-trigger" onclick="openModal('0003')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0003"></div>
@@ -356,19 +393,46 @@
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
 
-                <!-- Archive 0004 -->
+                <!-- 0004 -->
                 <button class="card-trigger" onclick="openModal('0004')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0004"></div>
                     </div>
-                    <div class="meta">
-                        Archive #0004 
-                        <span class="badge">Unfinished Project</span>
-                    </div>
+                    <div class="meta">Archive #0004 <span class="badge">Unfinished Project</span></div>
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
             </div>
         </main>
+
+        <section class="social-matrix">
+            <a href="https://github.com/AzimSoufiane" target="_blank" class="social-bracket">
+                <span class="social-label">Developer Protocol</span>
+                <div class="social-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="gh-repos">--</span>
+                        <span class="stat-name">Repositories</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="gh-followers">--</span>
+                        <span class="stat-name">Followers</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://www.instagram.com/sf1ontrack/" target="_blank" class="social-bracket">
+                <span class="social-label">Visual Identity</span>
+                <div class="social-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" style="font-size: 1.2rem; letter-spacing: 1px;">@SF1ONTRACK</span>
+                        <span class="stat-name">Instagram Profile</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" style="font-size: 1.2rem;">→</span>
+                        <span class="stat-name">Connect</span>
+                    </div>
+                </div>
+            </a>
+        </section>
 
         <footer>
             AZIMSOUFIANE / SF1ONTRACK &copy; <span id="year"></span>
@@ -378,7 +442,7 @@
     <script>
         document.getElementById('year').innerText = new Date().getFullYear();
 
-        // Background texture repeating
+        // Texture generation
         const texture = document.getElementById('texture-overlay');
         const phrase = "MY AFFECTION NEVER ACTUALLY LEAVES • ";
         texture.innerText = phrase.repeat(500);
@@ -423,24 +487,31 @@
             document.getElementById('modal-story').innerText = item.story;
             document.getElementById('modal-link').href = item.link;
             document.getElementById('spotify-container').innerHTML = `<iframe class="spotify-preview" src="https://open.spotify.com/embed/playlist/${item.id}?utm_source=generator&theme=0" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-            
             const modal = document.getElementById('modal-overlay');
             modal.style.display = 'block';
-            setTimeout(() => {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }, 20);
+            setTimeout(() => { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }, 20);
         }
 
         function closeModal() {
             const modal = document.getElementById('modal-overlay');
             modal.classList.remove('active');
-            setTimeout(() => {
-                modal.style.display = 'none';
-                document.getElementById('spotify-container').innerHTML = '';
-                document.body.style.overflow = 'auto';
-            }, 400);
+            setTimeout(() => { modal.style.display = 'none'; document.getElementById('spotify-container').innerHTML = ''; document.body.style.overflow = 'auto'; }, 400);
         }
+
+        async function fetchGitHubStats() {
+            try {
+                const response = await fetch('https://api.github.com/users/AzimSoufiane');
+                const data = await response.json();
+                if(data.public_repos !== undefined) {
+                    document.getElementById('gh-repos').innerText = data.public_repos;
+                    document.getElementById('gh-followers').innerText = data.followers;
+                }
+            } catch (e) { 
+                document.getElementById('gh-repos').innerText = "12";
+                document.getElementById('gh-followers').innerText = "5";
+            }
+        }
+        fetchGitHubStats();
     </script>
 </body>
 </html>
