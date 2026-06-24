@@ -8,14 +8,14 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300&family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --bg: #090909;
             --text: #f2ede8;
             --accent: #c9a84c;
-            --track-opacity: 0.04;
+            --overlay-opacity: 0.04;
         }
 
         * {
@@ -37,39 +37,41 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 110%;
+            height: 110%;
             pointer-events: none;
             z-index: 0;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: var(--text);
-            opacity: var(--track-opacity);
-            line-height: 1.5;
+            opacity: var(--overlay-opacity);
+            line-height: 1.8;
             user-select: none;
             overflow: hidden;
-            padding: 10px;
+            padding: 20px;
         }
 
-        /* Layout */
-        .wrapper {
+        /* Layout Container */
+        .container {
             position: relative;
             z-index: 1;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 80px 24px;
+            padding: 100px 24px;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 120px;
+            text-align: left;
+            margin-bottom: 80px;
+            border-left: 1px solid var(--accent);
+            padding-left: 30px;
         }
 
         .brand-sub {
-            font-size: 11px;
-            letter-spacing: 0.5rem;
+            font-size: 12px;
+            letter-spacing: 0.4rem;
             text-transform: uppercase;
             color: var(--accent);
             margin-bottom: 1rem;
@@ -78,214 +80,236 @@
 
         h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             font-weight: 300;
-            letter-spacing: 0.2rem;
+            letter-spacing: -1px;
             text-transform: uppercase;
-            line-height: 1;
+            line-height: 0.9;
+            margin-bottom: 2rem;
         }
 
         .intro-text {
-            max-width: 600px;
-            margin: 2rem auto;
+            max-width: 550px;
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 1.25rem;
-            opacity: 0.8;
-            line-height: 1.6;
+            font-size: 1.4rem;
+            opacity: 0.7;
+            line-height: 1.4;
         }
 
-        /* Grid */
-        .playlist-grid {
+        /* Primary Tape (Hero) */
+        .primary-tape {
+            margin-bottom: 120px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .primary-artwork {
+            width: 100%;
+            aspect-ratio: 16/7;
+            background-color: #111;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        /* Hero Placeholder (Gesaffelstein Vibe) */
+        .art-primary {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 40%, #222 0%, #000 80%), 
+                        url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-blend-mode: overlay;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .primary-tape:hover .art-primary {
+            transform: scale(1.03);
+        }
+
+        /* Secondary Grid */
+        .archive-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 80px 40px;
+            gap: 100px 40px;
         }
 
-        /* Playlist Card */
         .card {
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
-            transition: transform 0.4s ease;
         }
 
-        .card:hover {
-            transform: translateY(-8px);
-        }
-
-        .artwork-container {
+        .artwork-wrapper {
             width: 100%;
             aspect-ratio: 1/1;
             background: #111;
-            margin-bottom: 24px;
+            margin-bottom: 25px;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(242, 237, 232, 0.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* Mock Artwork Styles */
-        .art-placeholder {
+        .art-img {
             width: 100%;
             height: 100%;
             background-size: cover;
             background-position: center;
-            transition: transform 0.8s scale(1.1);
-            filter: grayscale(20%) contrast(110%);
+            transition: transform 0.8s ease;
+            filter: grayscale(30%);
         }
 
-        .card:hover .art-placeholder {
+        .card:hover .art-img {
             transform: scale(1.05);
             filter: grayscale(0%);
         }
 
-        .overlay-text {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-family: 'Cormorant Garamond', serif;
-            color: var(--accent);
-            font-size: 1.5rem;
-            pointer-events: none;
+        /* Specific Placeholder Styling */
+        .art-0001 { background-image: url('https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1000&auto=format&fit=crop'); }
+        .art-0002 { background-image: linear-gradient(rgba(139,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1000&auto=format&fit=crop'); }
+        .art-0003 { background-color: #050505; display: flex; align-items: center; justify-content: center; }
+        .art-0004 { background-image: url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?q=80&w=1000&auto=format&fit=crop'); mix-blend-mode: luminosity; }
+
+        .mask-icon {
+            width: 80px; height: 80px; fill: none; stroke: var(--accent); stroke-width: 0.5;
         }
 
-        /* Card Typography */
-        .card-meta {
+        /* Typography */
+        .meta {
             font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 8px;
+            letter-spacing: 4px;
             color: var(--accent);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
         }
 
-        .card-title {
+        .title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
             font-weight: 500;
         }
 
-        .unfinished-badge {
+        .badge {
+            font-size: 9px;
             border: 1px solid var(--accent);
             padding: 2px 8px;
-            font-size: 9px;
+            letter-spacing: 1px;
         }
 
-        /* Specific Artwork Visuals (Placeholders) */
-        .art-1 { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1514525253361-b83f859b73c0?q=80&w=1000&auto=format&fit=crop'); }
-        .art-2 { background: linear-gradient(rgba(71, 0, 0, 0.4), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=1000&auto=format&fit=crop'); }
-        .art-3 { background: #0a0a0a; display: flex; align-items: center; justify-content: center; }
-        .art-4 { background: url('https://images.unsplash.com/photo-1605722243979-fe0be8158232?q=80&w=1000&auto=format&fit=crop'); mix-blend-mode: luminosity; }
-        .art-5 { background: radial-gradient(circle at 70% 30%, #333 0%, #000 100%); }
+        .primary-title {
+            font-size: 2.5rem;
+            color: var(--text);
+        }
 
-        /* Footer */
         footer {
             margin-top: 150px;
-            padding-top: 40px;
+            padding: 60px 0;
             border-top: 1px solid rgba(242, 237, 232, 0.1);
             text-align: center;
-            font-size: 12px;
-            letter-spacing: 4px;
+            font-size: 11px;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
-        /* Responsive */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .playlist-grid { grid-template-columns: 1fr; gap: 60px; }
-            .wrapper { padding: 40px 20px; }
-            header { margin-bottom: 60px; }
+            .archive-grid { grid-template-columns: 1fr; gap: 60px; }
+            .primary-artwork { aspect-ratio: 1/1; }
+            .container { padding: 60px 20px; }
             h1 { font-size: 3rem; }
         }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); }
     </style>
 </head>
 <body>
 
     <div id="texture-overlay"></div>
 
-    <div class="wrapper">
+    <div class="container">
         <header>
-            <p class="brand-sub">AZIMSOUFIANE / SF1ONTRACK</p>
-            <h1>CORRUPTED TAPES</h1>
+            <p class="brand-sub">SF1ONTRACK Presents</p>
+            <h1>CORRUPTED<br>TAPES</h1>
             <p class="intro-text">
-                A personal music curation project — documenting something unfinished. 
-                A musical CV, cinematic in scale, emotional by design.
+                A personal music curation project — documenting the unfinished. 
+                A musical CV, cinematic, dark, and emotional.
             </p>
         </header>
 
-        <main class="playlist-grid">
-            
-            <!-- Playlist 1 -->
-            <a href="https://open.spotify.com/playlist/4CsEPBBAm1tkoN6KUu05YB?si=4ac20d35bbff4d93" target="_blank" class="card">
-                <div class="artwork-container">
-                    <div class="art-placeholder art-1"></div>
-                    <div class="overlay-text" style="font-size: 10px; opacity: 0.3; width: 80%; line-height: 1.2;">MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES</div>
-                </div>
-                <div class="card-meta">Archive #0001</div>
-                <div class="card-title">SF1'S GRAVEYARD</div>
-            </a>
-
-            <!-- Playlist 2 -->
-            <a href="https://open.spotify.com/playlist/1e6caz4NbBkfQRRtm0wJV0?si=715c1fa951ec4d92" target="_blank" class="card">
-                <div class="artwork-container">
-                    <div class="art-placeholder art-2"></div>
-                    <div class="overlay-text" style="font-style: italic;">Kanbghik</div>
-                </div>
-                <div class="card-meta">Archive #0002</div>
-                <div class="card-title">SF1'S GRAVEYARD</div>
-            </a>
-
-            <!-- Playlist 3 -->
-            <a href="https://open.spotify.com/playlist/4wEhCaLH7gq0ybsskdTJKH?si=564b8d18cbb8484f" target="_blank" class="card">
-                <div class="artwork-container">
-                    <div class="art-placeholder art-3">
-                        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="0.5">
-                            <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"/>
-                            <circle cx="12" cy="12" r="3" />
-                        </svg>
+        <main>
+            <!-- PRIMARY TAPE: TOP OF PAGE -->
+            <a href="https://open.spotify.com/playlist/4EnZWrQq8XoIzoJy0lblkB?si=7beae1525be346a0" target="_blank" class="primary-tape">
+                <div class="primary-artwork">
+                    <div class="art-primary"></div>
+                    <div style="position: absolute; bottom: 30px; left: 30px;">
+                        <p class="meta" style="color: #fff;">Featured Press Kit</p>
+                        <h2 class="title primary-title">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
                     </div>
                 </div>
-                <div class="card-meta">Archive #0003</div>
-                <div class="card-title">SF1'S GRAVEYARD</div>
             </a>
 
-            <!-- Playlist 4 -->
-            <a href="https://open.spotify.com/playlist/26Y6h3a3jVDW7pufJ8N2ba?si=d4e7a9b536d3415e" target="_blank" class="card">
-                <div class="artwork-container">
-                    <div class="art-placeholder art-4"></div>
-                </div>
-                <div class="card-meta">
-                    Archive #0004 
-                    <span class="unfinished-badge">Unfinished Project</span>
-                </div>
-                <div class="card-title">SF1'S GRAVEYARD</div>
-            </a>
+            <div class="archive-grid">
+                
+                <!-- Archive 0001 -->
+                <a href="https://open.spotify.com/playlist/4CsEPBBAm1tkoN6KUu05YB?si=4ac20d35bbff4d93" target="_blank" class="card">
+                    <div class="artwork-wrapper">
+                        <div class="art-img art-0001"></div>
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; font-size: 8px; opacity: 0.2; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond';">
+                            MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
+                        </div>
+                    </div>
+                    <div class="meta">Archive #0001</div>
+                    <div class="title">SF1'S GRAVEYARD</div>
+                </a>
 
-            <!-- Playlist 5 -->
-            <a href="https://open.spotify.com/playlist/4EnZWrQq8XoIzoJy0lblkB?si=7beae1525be346a0" target="_blank" class="card" style="grid-column: 1 / -1;">
-                <div class="artwork-container" style="aspect-ratio: 21/9;">
-                    <div class="art-placeholder art-5"></div>
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, #000, transparent);"></div>
-                </div>
-                <div class="card-meta">The Primary Tape</div>
-                <div class="card-title">CORRUPTED TAPES (L'AMOUR DE MA VIE)</div>
-            </a>
+                <!-- Archive 0002 -->
+                <a href="https://open.spotify.com/playlist/1e6caz4NbBkfQRRtm0wJV0?si=715c1fa951ec4d92" target="_blank" class="card">
+                    <div class="artwork-wrapper">
+                        <div class="art-img art-0002"></div>
+                        <div style="position: absolute; bottom: 20px; right: 20px; font-family: 'Cormorant Garamond'; font-style: italic; color: var(--accent); font-size: 1.5rem;">Kanbghik</div>
+                    </div>
+                    <div class="meta">Archive #0002</div>
+                    <div class="title">SF1'S GRAVEYARD</div>
+                </a>
 
+                <!-- Archive 0003 -->
+                <a href="https://open.spotify.com/playlist/4wEhCaLH7gq0ybsskdTJKH?si=564b8d18cbb8484f" target="_blank" class="card">
+                    <div class="artwork-wrapper">
+                        <div class="art-img art-0003">
+                            <svg class="mask-icon" viewBox="0 0 24 24">
+                                <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"/>
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="meta">Archive #0003</div>
+                    <div class="title">SF1'S GRAVEYARD</div>
+                </a>
+
+                <!-- Archive 0004 -->
+                <a href="https://open.spotify.com/playlist/26Y6h3a3jVDW7pufJ8N2ba?si=d4e7a9b536d3415e" target="_blank" class="card">
+                    <div class="artwork-wrapper">
+                        <div class="art-img art-0004"></div>
+                    </div>
+                    <div class="meta">
+                        Archive #0004 
+                        <span class="badge">Unfinished Project</span>
+                    </div>
+                    <div class="title">SF1'S GRAVEYARD</div>
+                </a>
+
+            </div>
         </main>
 
         <footer>
-            AzimSoufiane / SF1ONTRACK &copy; <span id="year"></span>
+            AzimSoufiane / SF1ONTRACK &mdash; <span id="year"></span>
         </footer>
     </div>
 
@@ -293,21 +317,16 @@
         // Set Year
         document.getElementById('year').innerText = new Date().getFullYear();
 
-        // Create Background Texture
+        // Background Texture Logic
         const texture = document.getElementById('texture-overlay');
-        const phrase = "MY AFFECTION NEVER ACTUALLY LEAVES ";
-        const count = 500; // Adjust based on page length
-        
-        let content = "";
-        for(let i = 0; i < count; i++) {
-            content += phrase;
-        }
-        texture.innerText = content;
+        const phrase = "MY AFFECTION NEVER ACTUALLY LEAVES • ";
+        // Repeat the phrase to fill the screen
+        texture.innerText = phrase.repeat(600);
 
-        // Subtle Parallax effect on scroll for texture
+        // Gentle Parallax effect
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            texture.style.transform = `translateY(${scrolled * 0.1}px)`;
+            const offset = window.pageYOffset;
+            texture.style.transform = `translateY(${offset * 0.15}px)`;
         });
     </script>
 </body>
