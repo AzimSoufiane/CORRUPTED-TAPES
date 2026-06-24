@@ -16,10 +16,10 @@
             --text: #f2ede8;
             --accent: #c9a84c;
             --overlay-opacity: 0.04;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Optimization for PC/iPhone */
+        /* Optimization for PC & iPhone */
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -31,7 +31,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Subtle Cinematic Texture Background */
+        /* Background Text Texture */
         #texture-overlay {
             position: fixed;
             top: 0;
@@ -55,16 +55,16 @@
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: clamp(2rem, 8vw, 6rem) 24px;
+            padding: clamp(2.5rem, 8vw, 6rem) 24px;
         }
 
         header {
             text-align: left;
-            margin-bottom: clamp(3rem, 10vw, 6rem);
+            margin-bottom: clamp(4rem, 10vw, 8rem);
             border-left: 1px solid var(--accent);
-            padding-left: clamp(1.5rem, 4vw, 2.5rem);
+            padding-left: clamp(1.5rem, 5vw, 3rem);
         }
 
         .brand-sub {
@@ -72,36 +72,36 @@
             letter-spacing: 0.5rem;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: block;
         }
 
         h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-size: clamp(2.8rem, 11vw, 5rem);
             font-weight: 300;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
             text-transform: uppercase;
-            line-height: 0.9;
+            line-height: 0.85;
             margin-bottom: 2rem;
         }
 
         .intro-text {
-            max-width: 550px;
+            max-width: 600px;
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             opacity: 0.7;
             line-height: 1.4;
         }
 
-        /* Grid Layout */
-        .primary-tape { margin-bottom: 100px; }
+        /* Layout Grid */
+        .primary-tape { margin-bottom: 120px; }
 
         .archive-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 80px 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 100px 50px;
         }
 
         /* Card Elements */
@@ -122,12 +122,16 @@
             position: relative;
             overflow: hidden;
             background: #111;
-            border: 1px solid rgba(242, 237, 232, 0.05);
-            margin-bottom: 20px;
+            border: 1px solid rgba(242, 237, 232, 0.08);
+            margin-bottom: 24px;
         }
 
-        .primary-artwork { aspect-ratio: 21/9; }
+        .primary-artwork { aspect-ratio: 16/9; }
         .archive-artwork { aspect-ratio: 1/1; }
+
+        @media (min-width: 1024px) {
+            .primary-artwork { aspect-ratio: 21/9; }
+        }
 
         .art-img {
             width: 100%;
@@ -135,22 +139,22 @@
             background-size: cover;
             background-position: center;
             transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(20%);
+            filter: grayscale(15%) contrast(105%);
         }
 
-        /* Card Hover Effects */
+        /* Hover states for PC */
         @media (hover: hover) {
-            .card-trigger:hover .art-img { transform: scale(1.05); filter: grayscale(0); }
+            .card-trigger:hover .art-img { transform: scale(1.04); filter: grayscale(0%); }
             .card-trigger:hover .artwork-wrapper { border-color: var(--accent); }
         }
 
-        /* Typography */
+        /* Card Typography */
         .meta {
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 4px;
             color: var(--accent);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -158,14 +162,15 @@
 
         .title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            font-size: clamp(1.6rem, 4vw, 2.1rem);
             text-transform: uppercase;
             font-weight: 500;
+            line-height: 1.1;
         }
 
-        .badge { font-size: 9px; border: 1px solid var(--accent); padding: 2px 8px; letter-spacing: 1px; }
+        .badge { font-size: 9px; border: 1px solid var(--accent); padding: 2px 10px; letter-spacing: 1px; }
 
-        /* MODAL OVERLAY */
+        /* MODAL SYSTEM */
         #modal-overlay {
             position: fixed;
             top: 0;
@@ -173,8 +178,8 @@
             width: 100%;
             height: 100%;
             background: rgba(4, 4, 4, 0.98);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
             display: none;
             opacity: 0;
@@ -185,9 +190,9 @@
         #modal-overlay.active { display: block; opacity: 1; }
 
         .modal-content {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
-            padding: clamp(3rem, 10vw, 6rem) 24px;
+            padding: clamp(3rem, 12vw, 8rem) 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -199,75 +204,86 @@
             position: fixed;
             top: 25px;
             right: 25px;
-            background: none;
+            background: rgba(255,255,255,0.05);
             border: none;
             color: var(--text);
-            font-size: 28px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 20px;
             cursor: pointer;
             z-index: 1001;
-            opacity: 0.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-header {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-size: clamp(2rem, 8vw, 3.5rem);
             color: var(--accent);
             text-transform: uppercase;
             text-align: center;
-            margin-bottom: 2rem;
-            line-height: 1.1;
+            margin-bottom: 2.5rem;
+            line-height: 1;
         }
 
         .modal-story {
-            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
             line-height: 1.8;
             font-weight: 300;
             text-align: center;
-            margin-bottom: 3rem;
-            opacity: 0.9;
+            margin-bottom: 3.5rem;
+            opacity: 0.95;
+            color: #ccc;
         }
 
         .spotify-preview {
             width: 100%;
             height: 152px;
             border-radius: 12px;
-            margin-bottom: 3rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            margin-bottom: 3.5rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
         }
 
         .play-btn {
             background: var(--accent);
             color: #000;
             text-decoration: none;
-            padding: 20px 45px;
+            padding: 22px 50px;
             font-weight: 600;
-            font-size: 12px;
-            letter-spacing: 3px;
+            font-size: 13px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             transition: var(--transition);
+            display: inline-block;
         }
 
+        .play-btn:hover { background: #e1bd5a; transform: scale(1.05); }
+
         footer {
-            margin-top: 100px;
-            padding: 60px 0;
-            border-top: 1px solid rgba(242, 237, 232, 0.1);
+            margin-top: 150px;
+            padding: 80px 0;
+            border-top: 1px solid rgba(242, 237, 232, 0.08);
             text-align: center;
             font-size: 11px;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             text-transform: uppercase;
             opacity: 0.4;
         }
 
-        /* INTEGRATED ARTWORK LINKS */
-        .art-primary { background-image: url('https://i.ibb.co/MysTVMJw/image.jpg'); }
-        .art-0001 { background-image: url('https://i.ibb.co/3m9x8bDm/image.jpg'); }
-        .art-0002 { background-image: url('https://i.ibb.co/fYp7pXBj/image.jpg'); }
-        .art-0003 { background-image: url('https://i.ibb.co/HTHdwJB0/image.jpg'); }
-        .art-0004 { background-image: url('https://i.ibb.co/zWX6fR49/image.jpg'); }
+        /* HIGH-QUALITY IMAGE SOURCES */
+        .art-primary { background-image: url('https://i.ibb.co/xKDvjJr9/image.jpg'); }
+        .art-0001 { background-image: url('https://i.ibb.co/4RnbDL6R/image.jpg'); }
+        .art-0002 { background-image: url('https://i.ibb.co/C57F7wNR/image.jpg'); }
+        .art-0003 { background-image: url('https://i.ibb.co/XxC80wj9/image.jpg'); }
+        .art-0004 { background-image: url('https://i.ibb.co/7xnkyW1M/image.jpg'); }
 
+        /* Tablet/Mobile Patch */
         @media (max-width: 768px) {
             .primary-artwork { aspect-ratio: 1/1; }
-            .container { padding: 40px 20px; }
+            .container { padding: 50px 24px; }
+            header { padding-left: 20px; }
         }
     </style>
 </head>
@@ -297,13 +313,13 @@
         </header>
 
         <main>
-            <!-- PRIMARY TAPE -->
+            <!-- PRIMARY TAPE (TOP) -->
             <button class="card-trigger primary-tape" onclick="openModal('primary')">
                 <div class="artwork-wrapper primary-artwork">
                     <div class="art-img art-primary"></div>
-                    <div style="position: absolute; bottom: 20px; left: 20px;">
-                        <span class="meta" style="color:#fff;">Press Kit</span>
-                        <h2 class="title" style="color:#fff; font-size: clamp(1.4rem, 5vw, 2.5rem);">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
+                    <div style="position: absolute; bottom: 25px; left: 25px; right: 25px;">
+                        <span class="meta" style="color:#fff;">Musical CV / Press Kit</span>
+                        <h2 class="title" style="color:#fff; font-size: clamp(1.6rem, 5vw, 2.8rem);">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
                     </div>
                 </div>
             </button>
@@ -313,8 +329,9 @@
                 <button class="card-trigger" onclick="openModal('0001')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0001"></div>
-                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 10px; font-size: 7px; opacity: 0.15; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond'; line-height: 1.5;">
-                            MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
+                        <!-- Custom Texture Overlay for #0001 -->
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; font-size: 8px; opacity: 0.15; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond'; line-height: 1.4; color: #fff;">
+                            MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
                         </div>
                     </div>
                     <div class="meta">Archive #0001</div>
@@ -354,14 +371,14 @@
         </main>
 
         <footer>
-            AzimSoufiane / SF1ONTRACK &copy; <span id="year"></span>
+            AZIMSOUFIANE / SF1ONTRACK &copy; <span id="year"></span>
         </footer>
     </div>
 
     <script>
         document.getElementById('year').innerText = new Date().getFullYear();
 
-        // Texture generation
+        // Background texture repeating
         const texture = document.getElementById('texture-overlay');
         const phrase = "MY AFFECTION NEVER ACTUALLY LEAVES • ";
         texture.innerText = phrase.repeat(500);
@@ -409,8 +426,10 @@
             
             const modal = document.getElementById('modal-overlay');
             modal.style.display = 'block';
-            setTimeout(() => modal.classList.add('active'), 10);
-            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 20);
         }
 
         function closeModal() {
@@ -419,8 +438,8 @@
             setTimeout(() => {
                 modal.style.display = 'none';
                 document.getElementById('spotify-container').innerHTML = '';
+                document.body.style.overflow = 'auto';
             }, 400);
-            document.body.style.overflow = 'auto';
         }
     </script>
 </body>
