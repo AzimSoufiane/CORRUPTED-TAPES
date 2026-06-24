@@ -17,18 +17,11 @@
             --accent: #c9a84c;
             --overlay-opacity: 0.04;
             --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            --container-padding: clamp(1.5rem, 5vw, 4rem);
         }
 
-        /* Smooth Scrolling for PC */
+        /* Optimization for PC/iPhone */
         html { scroll-behavior: smooth; }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--bg);
@@ -36,53 +29,47 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Hardware Accelerated Texture Background */
+        /* Subtle Cinematic Texture Background */
         #texture-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 110%;
+            height: 110%;
             pointer-events: none;
             z-index: 0;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 10px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: var(--text);
             opacity: var(--overlay-opacity);
-            line-height: 1.6;
+            line-height: 1.8;
             user-select: none;
             overflow: hidden;
-            will-change: transform;
-            padding: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            padding: 20px;
         }
 
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: var(--container-padding);
+            padding: clamp(2rem, 8vw, 6rem) 24px;
         }
 
-        /* Header Optimization */
         header {
             text-align: left;
-            margin-bottom: clamp(4rem, 10vw, 8rem);
-            border-left: 2px solid var(--accent);
-            padding-left: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: clamp(3rem, 10vw, 6rem);
+            border-left: 1px solid var(--accent);
+            padding-left: clamp(1.5rem, 4vw, 2.5rem);
         }
 
         .brand-sub {
-            font-size: clamp(10px, 2vw, 12px);
-            letter-spacing: 0.4em;
+            font-size: 11px;
+            letter-spacing: 0.5rem;
             text-transform: uppercase;
             color: var(--accent);
             margin-bottom: 1rem;
@@ -91,16 +78,16 @@
 
         h1 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 10vw, 5rem);
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
             font-weight: 300;
-            letter-spacing: -0.02em;
+            letter-spacing: -1px;
             text-transform: uppercase;
-            line-height: 0.85;
-            margin-bottom: 1.5rem;
+            line-height: 0.9;
+            margin-bottom: 2rem;
         }
 
         .intro-text {
-            max-width: 600px;
+            max-width: 550px;
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: clamp(1.1rem, 3vw, 1.4rem);
@@ -108,13 +95,13 @@
             line-height: 1.4;
         }
 
-        /* Layout Grid */
-        main { display: flex; flex-direction: column; gap: 4rem; }
+        /* Grid Layout */
+        .primary-tape { margin-bottom: 100px; }
 
         .archive-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 3rem);
+            gap: 80px 40px;
         }
 
         /* Card Elements */
@@ -127,6 +114,7 @@
             width: 100%;
             display: block;
             outline: none;
+            transition: var(--transition);
         }
 
         .artwork-wrapper {
@@ -134,17 +122,12 @@
             position: relative;
             overflow: hidden;
             background: #111;
-            border: 1px solid rgba(242, 237, 232, 0.1);
-            margin-bottom: 1.5rem;
-            transition: var(--transition);
+            border: 1px solid rgba(242, 237, 232, 0.05);
+            margin-bottom: 20px;
         }
 
-        .primary-artwork { aspect-ratio: 16/9; }
+        .primary-artwork { aspect-ratio: 21/9; }
         .archive-artwork { aspect-ratio: 1/1; }
-
-        @media (min-width: 1024px) {
-            .primary-artwork { aspect-ratio: 21/9; }
-        }
 
         .art-img {
             width: 100%;
@@ -152,22 +135,22 @@
             background-size: cover;
             background-position: center;
             transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(0.2);
+            filter: grayscale(20%);
         }
 
-        /* Hover States for PC Only */
+        /* Card Hover Effects */
         @media (hover: hover) {
             .card-trigger:hover .art-img { transform: scale(1.05); filter: grayscale(0); }
-            .card-trigger:hover .artwork-wrapper { border-color: var(--accent); box-shadow: 0 0 30px rgba(201, 168, 76, 0.1); }
+            .card-trigger:hover .artwork-wrapper { border-color: var(--accent); }
         }
 
         /* Typography */
         .meta {
             font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
+            letter-spacing: 4px;
             color: var(--accent);
-            margin-bottom: 0.8rem;
+            margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -178,17 +161,11 @@
             font-size: clamp(1.4rem, 4vw, 1.8rem);
             text-transform: uppercase;
             font-weight: 500;
-            line-height: 1.1;
         }
 
-        .badge {
-            font-size: 9px;
-            border: 1px solid var(--accent);
-            padding: 2px 8px;
-            letter-spacing: 0.1em;
-        }
+        .badge { font-size: 9px; border: 1px solid var(--accent); padding: 2px 8px; letter-spacing: 1px; }
 
-        /* Full-Screen Modal */
+        /* MODAL OVERLAY */
         #modal-overlay {
             position: fixed;
             top: 0;
@@ -203,49 +180,42 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         #modal-overlay.active { display: block; opacity: 1; }
 
         .modal-content {
-            width: 100%;
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: clamp(2rem, 10vw, 6rem) var(--container-padding);
             max-width: 800px;
             margin: 0 auto;
+            padding: clamp(3rem, 10vw, 6rem) 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100%;
+            justify-content: center;
         }
 
         .close-modal {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.05);
+            top: 25px;
+            right: 25px;
+            background: none;
             border: none;
             color: var(--text);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 20px;
+            font-size: 28px;
             cursor: pointer;
             z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            opacity: 0.5;
         }
 
         .modal-header {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(1.8rem, 6vw, 3rem);
             color: var(--accent);
-            text-align: center;
             text-transform: uppercase;
+            text-align: center;
             margin-bottom: 2rem;
-            line-height: 1;
+            line-height: 1.1;
         }
 
         .modal-story {
@@ -262,47 +232,50 @@
             height: 152px;
             border-radius: 12px;
             margin-bottom: 3rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
         .play-btn {
             background: var(--accent);
             color: #000;
             text-decoration: none;
-            padding: 20px 40px;
+            padding: 20px 45px;
             font-weight: 600;
             font-size: 12px;
-            letter-spacing: 0.3em;
+            letter-spacing: 3px;
             text-transform: uppercase;
             transition: var(--transition);
-            display: inline-block;
-            text-align: center;
         }
 
         footer {
-            margin-top: clamp(6rem, 15vw, 10rem);
-            padding: 4rem 0;
+            margin-top: 100px;
+            padding: 60px 0;
             border-top: 1px solid rgba(242, 237, 232, 0.1);
             text-align: center;
-            font-size: 10px;
-            letter-spacing: 0.5em;
+            font-size: 11px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             opacity: 0.4;
         }
 
-        /* Specific Artwork Classes */
-        .art-primary { background-image: url('https://i.scdn.co/image/ab67706c0000bebb04403d987a026e632b7f3299'); }
-        .art-0001 { background-image: url('https://i.scdn.co/image/ab67706c0000bebb9443277028b868e82a4d334e'); }
-        .art-0002 { background-image: url('https://i.scdn.co/image/ab67706c0000bebb494191a3294344406159c38e'); }
-        .art-0003 { background-image: url('https://i.scdn.co/image/ab67706c0000bebb73347c6a99264878a8738378'); }
-        .art-0004 { background-image: url('https://i.scdn.co/image/ab67706c0000bebb6085a6a6857189196b010d29'); }
+        /* INTEGRATED ARTWORK LINKS */
+        .art-primary { background-image: url('https://i.ibb.co/MysTVMJw/image.jpg'); }
+        .art-0001 { background-image: url('https://i.ibb.co/3m9x8bDm/image.jpg'); }
+        .art-0002 { background-image: url('https://i.ibb.co/fYp7pXBj/image.jpg'); }
+        .art-0003 { background-image: url('https://i.ibb.co/HTHdwJB0/image.jpg'); }
+        .art-0004 { background-image: url('https://i.ibb.co/zWX6fR49/image.jpg'); }
 
+        @media (max-width: 768px) {
+            .primary-artwork { aspect-ratio: 1/1; }
+            .container { padding: 40px 20px; }
+        }
     </style>
 </head>
 <body>
 
     <div id="texture-overlay"></div>
 
+    <!-- MODAL -->
     <div id="modal-overlay" onclick="closeModal()">
         <button class="close-modal">✕</button>
         <div class="modal-content" onclick="event.stopPropagation()">
@@ -324,28 +297,31 @@
         </header>
 
         <main>
-            <!-- PRIMARY -->
-            <button class="card-trigger" onclick="openModal('primary')">
+            <!-- PRIMARY TAPE -->
+            <button class="card-trigger primary-tape" onclick="openModal('primary')">
                 <div class="artwork-wrapper primary-artwork">
                     <div class="art-img art-primary"></div>
                     <div style="position: absolute; bottom: 20px; left: 20px;">
-                        <span class="meta" style="color:#fff; margin:0;">The Primary Tape</span>
-                        <h2 class="title" style="color:#fff; font-size: clamp(1.5rem, 5vw, 2.5rem);">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
+                        <span class="meta" style="color:#fff;">Press Kit</span>
+                        <h2 class="title" style="color:#fff; font-size: clamp(1.4rem, 5vw, 2.5rem);">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
                     </div>
                 </div>
             </button>
 
             <div class="archive-grid">
-                <!-- 0001 -->
+                <!-- Archive 0001 -->
                 <button class="card-trigger" onclick="openModal('0001')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0001"></div>
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 10px; font-size: 7px; opacity: 0.15; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond'; line-height: 1.5;">
+                            MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
+                        </div>
                     </div>
                     <div class="meta">Archive #0001</div>
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
 
-                <!-- 0002 -->
+                <!-- Archive 0002 -->
                 <button class="card-trigger" onclick="openModal('0002')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0002"></div>
@@ -354,7 +330,7 @@
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
 
-                <!-- 0003 -->
+                <!-- Archive 0003 -->
                 <button class="card-trigger" onclick="openModal('0003')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0003"></div>
@@ -363,14 +339,14 @@
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
 
-                <!-- 0004 -->
+                <!-- Archive 0004 -->
                 <button class="card-trigger" onclick="openModal('0004')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0004"></div>
                     </div>
                     <div class="meta">
                         Archive #0004 
-                        <span class="badge">Unfinished</span>
+                        <span class="badge">Unfinished Project</span>
                     </div>
                     <div class="title">SF1'S GRAVEYARD</div>
                 </button>
@@ -378,26 +354,19 @@
         </main>
 
         <footer>
-            AZIMSOUFIANE / SF1ONTRACK &copy; <span id="year"></span>
+            AzimSoufiane / SF1ONTRACK &copy; <span id="year"></span>
         </footer>
     </div>
 
     <script>
         document.getElementById('year').innerText = new Date().getFullYear();
 
-        // Optimized Background Texture
+        // Texture generation
         const texture = document.getElementById('texture-overlay');
         const phrase = "MY AFFECTION NEVER ACTUALLY LEAVES • ";
-        texture.innerText = phrase.repeat(250);
+        texture.innerText = phrase.repeat(500);
 
-        // Gentle Parallax for Desktop
-        if (window.innerWidth > 1024) {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                texture.style.transform = `translate3d(0, ${scrolled * 0.1}px, 0)`;
-            });
-        }
-
+        // Modal Data
         const data = {
             'primary': {
                 title: "CORRUPTED TAPES (L'AMOUR DE MA VIE)",
