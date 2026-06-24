@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=Inter:wght@100;300;400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -16,6 +16,7 @@
             --text: #f2ede8;
             --accent: #c9a84c;
             --overlay-opacity: 0.04;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -97,88 +98,67 @@
             line-height: 1.4;
         }
 
-        /* Primary Tape (Hero) */
-        .primary-tape {
-            margin-bottom: 120px;
+        /* Clickable Cards */
+        .card-trigger {
+            cursor: pointer;
             text-decoration: none;
             color: inherit;
             display: block;
-        }
-
-        .primary-artwork {
+            border: none;
+            background: none;
             width: 100%;
-            aspect-ratio: 16/7;
-            background-color: #111;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid rgba(201, 168, 76, 0.2);
+            text-align: left;
         }
 
-        /* Hero Placeholder (Gesaffelstein Vibe) */
-        .art-primary {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 70% 40%, #222 0%, #000 80%), 
-                        url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover;
-            background-blend-mode: overlay;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .primary-tape:hover .art-primary {
-            transform: scale(1.03);
-        }
-
-        /* Secondary Grid */
-        .archive-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 100px 40px;
-        }
-
-        .card {
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-        }
+        .primary-tape { margin-bottom: 120px; }
 
         .artwork-wrapper {
             width: 100%;
-            aspect-ratio: 1/1;
-            background: #111;
-            margin-bottom: 25px;
+            background-color: #111;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(242, 237, 232, 0.05);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            transition: var(--transition);
         }
+
+        .primary-artwork { aspect-ratio: 16/7; }
+        .archive-artwork { aspect-ratio: 1/1; margin-bottom: 25px; }
 
         .art-img {
             width: 100%;
             height: 100%;
             background-size: cover;
             background-position: center;
-            transition: transform 0.8s ease;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             filter: grayscale(30%);
         }
 
-        .card:hover .art-img {
-            transform: scale(1.05);
+        .card-trigger:hover .art-img {
+            transform: scale(1.04);
             filter: grayscale(0%);
         }
 
-        /* Specific Placeholder Styling */
+        .card-trigger:hover .artwork-wrapper {
+            border-color: var(--accent);
+        }
+
+        /* Grid */
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 100px 40px;
+        }
+
+        /* Specific Artwork Styling */
+        .art-primary { background-image: radial-gradient(circle at 70% 40%, rgba(0,0,0,0.4) 0%, #000 80%), url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2000&auto=format&fit=crop'); }
         .art-0001 { background-image: url('https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1000&auto=format&fit=crop'); }
         .art-0002 { background-image: linear-gradient(rgba(139,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1000&auto=format&fit=crop'); }
         .art-0003 { background-color: #050505; display: flex; align-items: center; justify-content: center; }
         .art-0004 { background-image: url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?q=80&w=1000&auto=format&fit=crop'); mix-blend-mode: luminosity; }
 
-        .mask-icon {
-            width: 80px; height: 80px; fill: none; stroke: var(--accent); stroke-width: 0.5;
-        }
+        .mask-icon { width: 80px; height: 80px; fill: none; stroke: var(--accent); stroke-width: 0.5; }
 
-        /* Typography */
+        /* Card Typography */
         .meta {
             font-size: 10px;
             text-transform: uppercase;
@@ -197,16 +177,102 @@
             font-weight: 500;
         }
 
-        .badge {
-            font-size: 9px;
-            border: 1px solid var(--accent);
-            padding: 2px 8px;
-            letter-spacing: 1px;
+        .badge { font-size: 9px; border: 1px solid var(--accent); padding: 2px 8px; letter-spacing: 1px; }
+
+        /* MODAL STYLES */
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(4, 4, 4, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .primary-title {
-            font-size: 2.5rem;
+        #modal-overlay.active { display: flex; opacity: 1; }
+
+        .modal-content {
+            background: #0d0d0d;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            position: relative;
+            padding: 60px 40px;
+            overflow-y: auto;
+            border: 1px solid rgba(242, 237, 232, 0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+
+        #modal-overlay.active .modal-content { transform: translateY(0); }
+
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: none;
             color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .close-modal:hover { opacity: 1; }
+
+        .modal-header {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            line-height: 1.1;
+        }
+
+        .modal-story {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+
+        .spotify-preview {
+            width: 100%;
+            height: 152px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            background: #111;
+        }
+
+        .play-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            text-decoration: none;
+            padding: 18px 40px;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .play-btn:hover {
+            background: #e1bd5a;
+            transform: scale(1.05);
         }
 
         footer {
@@ -220,18 +286,32 @@
             opacity: 0.4;
         }
 
-        /* Mobile Adjustments */
+        /* Mobile */
         @media (max-width: 768px) {
             .archive-grid { grid-template-columns: 1fr; gap: 60px; }
-            .primary-artwork { aspect-ratio: 1/1; }
+            .modal-content { padding: 40px 20px; }
             .container { padding: 60px 20px; }
-            h1 { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
     <div id="texture-overlay"></div>
+
+    <!-- MODAL STRUCTURE -->
+    <div id="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="closeModal()">✕</button>
+            <h2 id="modal-title" class="modal-header">Playlist Title</h2>
+            <p id="modal-story" class="modal-story">Playlist story goes here...</p>
+            
+            <div id="spotify-container">
+                <!-- Spotify Iframe injected here -->
+            </div>
+
+            <a id="modal-link" href="#" target="_blank" class="play-btn">▶ Play on Spotify</a>
+        </div>
+    </div>
 
     <div class="container">
         <header>
@@ -244,22 +324,22 @@
         </header>
 
         <main>
-            <!-- PRIMARY TAPE: TOP OF PAGE -->
-            <a href="https://open.spotify.com/playlist/4EnZWrQq8XoIzoJy0lblkB?si=7beae1525be346a0" target="_blank" class="primary-tape">
-                <div class="primary-artwork">
-                    <div class="art-primary"></div>
+            <!-- PRIMARY TAPE -->
+            <button class="card-trigger primary-tape" onclick="openModal('primary')">
+                <div class="artwork-wrapper primary-artwork">
+                    <div class="art-img art-primary"></div>
                     <div style="position: absolute; bottom: 30px; left: 30px;">
                         <p class="meta" style="color: #fff;">Featured Press Kit</p>
-                        <h2 class="title primary-title">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
+                        <h2 class="title" style="font-size: 2.5rem; color: #fff;">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
                     </div>
                 </div>
-            </a>
+            </button>
 
             <div class="archive-grid">
                 
                 <!-- Archive 0001 -->
-                <a href="https://open.spotify.com/playlist/4CsEPBBAm1tkoN6KUu05YB?si=4ac20d35bbff4d93" target="_blank" class="card">
-                    <div class="artwork-wrapper">
+                <button class="card-trigger" onclick="openModal('0001')">
+                    <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0001"></div>
                         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; font-size: 8px; opacity: 0.2; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond';">
                             MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
@@ -267,21 +347,21 @@
                     </div>
                     <div class="meta">Archive #0001</div>
                     <div class="title">SF1'S GRAVEYARD</div>
-                </a>
+                </button>
 
                 <!-- Archive 0002 -->
-                <a href="https://open.spotify.com/playlist/1e6caz4NbBkfQRRtm0wJV0?si=715c1fa951ec4d92" target="_blank" class="card">
-                    <div class="artwork-wrapper">
+                <button class="card-trigger" onclick="openModal('0002')">
+                    <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0002"></div>
                         <div style="position: absolute; bottom: 20px; right: 20px; font-family: 'Cormorant Garamond'; font-style: italic; color: var(--accent); font-size: 1.5rem;">Kanbghik</div>
                     </div>
                     <div class="meta">Archive #0002</div>
                     <div class="title">SF1'S GRAVEYARD</div>
-                </a>
+                </button>
 
                 <!-- Archive 0003 -->
-                <a href="https://open.spotify.com/playlist/4wEhCaLH7gq0ybsskdTJKH?si=564b8d18cbb8484f" target="_blank" class="card">
-                    <div class="artwork-wrapper">
+                <button class="card-trigger" onclick="openModal('0003')">
+                    <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0003">
                             <svg class="mask-icon" viewBox="0 0 24 24">
                                 <path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"/>
@@ -291,11 +371,11 @@
                     </div>
                     <div class="meta">Archive #0003</div>
                     <div class="title">SF1'S GRAVEYARD</div>
-                </a>
+                </button>
 
                 <!-- Archive 0004 -->
-                <a href="https://open.spotify.com/playlist/26Y6h3a3jVDW7pufJ8N2ba?si=d4e7a9b536d3415e" target="_blank" class="card">
-                    <div class="artwork-wrapper">
+                <button class="card-trigger" onclick="openModal('0004')">
+                    <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0004"></div>
                     </div>
                     <div class="meta">
@@ -303,7 +383,7 @@
                         <span class="badge">Unfinished Project</span>
                     </div>
                     <div class="title">SF1'S GRAVEYARD</div>
-                </a>
+                </button>
 
             </div>
         </main>
@@ -320,14 +400,84 @@
         // Background Texture Logic
         const texture = document.getElementById('texture-overlay');
         const phrase = "MY AFFECTION NEVER ACTUALLY LEAVES • ";
-        // Repeat the phrase to fill the screen
         texture.innerText = phrase.repeat(600);
 
-        // Gentle Parallax effect
         window.addEventListener('scroll', () => {
             const offset = window.pageYOffset;
             texture.style.transform = `translateY(${offset * 0.15}px)`;
         });
+
+        // MODAL DATA & LOGIC
+        const playlistData = {
+            '0001': {
+                title: "SF1'S GRAVEYARD #0001",
+                story: "Built entirely on a hidden, five-letter truth that stays alive in plain sight: My Affection Never Actually Leaves. This project is the permanent baseline—the proof that no matter the distance, the ghost mode, or the silence, the love never actually exited the room.",
+                link: "https://open.spotify.com/playlist/4CsEPBBAm1tkoN6KUu05YB?si=4ac20d35bbff4d93",
+                spotifyId: "4CsEPBBAm1tkoN6KUu05YB"
+            },
+            '0002': {
+                title: "SF1'S GRAVEYARD #0002",
+                story: "Kanbghik. A raw, unfiltered late-night confession, wrapped in the heavy, toxic isolation of The Weeknd's After Hours. This is the soundtrack to the 3:00 AM loop, where the protective anger fades away and you are left completely stripped of defenses, facing the simple truth that I still want her.",
+                link: "https://open.spotify.com/playlist/1e6caz4NbBkfQRRtm0wJV0?si=715c1fa951ec4d92",
+                spotifyId: "1e6caz4NbBkfQRRtm0wJV0"
+            },
+            '0003': {
+                title: "SF1'S GRAVEYARD #0003",
+                story: "A preservation of the golden hours before everything broke. Inspired by the memory of an early morning date, a hidden café floor, and hours of talking that felt irreplaceable. It stands as a monument to the version of someone who felt like the love of a lifetime, frozen forever in black-and-white.",
+                link: "https://open.spotify.com/playlist/4wEhCaLH7gq0ybsskdTJKH?si=564b8d18cbb8484f",
+                spotifyId: "4wEhCaLH7gq0ybsskdTJKH"
+            },
+            '0004': {
+                title: "SF1'S GRAVEYARD #0004",
+                story: "A map of how ordinary, everyday music becomes corrupted by a ghost. This curation tracks the painful passage of months where radio hits and pop melodies turn into reminders of the exact moment things fractured, keeping the regret completely fresh.",
+                link: "https://open.spotify.com/playlist/26Y6h3a3jVDW7pufJ8N2ba?si=d4e7a9b536d3415e",
+                spotifyId: "26Y6h3a3jVDW7pufJ8N2ba"
+            },
+            'primary': {
+                title: "CORRUPTED TAPES (L'AMOUR DE MA VIE)",
+                story: "A preservation of the golden hours before everything broke. Inspired by the memory of an early morning date, a hidden café floor, and hours of talking that felt irreplaceable. It stands as a monument to the version of someone who felt like the love of a lifetime, frozen forever in black-and-white.",
+                link: "https://open.spotify.com/playlist/4EnZWrQq8XoIzoJy0lblkB?si=7beae1525be346a0",
+                spotifyId: "4EnZWrQq8XoIzoJy0lblkB"
+            }
+        };
+
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalStory = document.getElementById('modal-story');
+        const modalLink = document.getElementById('modal-link');
+        const spotifyContainer = document.getElementById('spotify-container');
+
+        function openModal(id) {
+            const data = playlistData[id];
+            modalTitle.innerText = data.title;
+            modalStory.innerText = data.story;
+            modalLink.href = data.link;
+            
+            // Inject Spotify Embed
+            spotifyContainer.innerHTML = `
+                <iframe class="spotify-preview" 
+                    src="https://open.spotify.com/embed/playlist/${data.spotifyId}?utm_source=generator&theme=0" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>`;
+
+            modalOverlay.style.display = 'flex';
+            setTimeout(() => {
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Stop scrolling
+            }, 10);
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            setTimeout(() => {
+                modalOverlay.style.display = 'none';
+                spotifyContainer.innerHTML = ''; // Clear iframe
+                document.body.style.overflow = 'auto'; // Resume scrolling
+            }, 400);
+        }
     </script>
 </body>
 </html>
