@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CORRUPTED TAPES COLLECTION — SF1ONTRACK</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,300&family=Inter:wght@100;300;400;600&display=swap" rel="stylesheet">
 
     <style>
+        /* ================================================================
+           BASE / OLD STYLES (Default — no glass)
+           ================================================================ */
         :root {
             --bg: #090909;
             --text: #f2ede8;
@@ -19,7 +22,6 @@
             --transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Optimization for PC & iPhone */
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -60,6 +62,7 @@
             padding: clamp(2.5rem, 8vw, 6rem) 24px;
         }
 
+        /* --- Header (Old) --- */
         header {
             text-align: left;
             margin-bottom: clamp(4rem, 10vw, 8rem);
@@ -103,6 +106,7 @@
             line-height: 1.4;
         }
 
+        /* --- Entry Note (Old) --- */
         .entry-note {
             margin-bottom: 2rem;
             padding: 18px 24px;
@@ -124,7 +128,7 @@
             transform: translateY(0);
         }
 
-        /* Grid */
+        /* --- Grid --- */
         .primary-tape { margin-bottom: 120px; }
         .archive-grid {
             display: grid;
@@ -132,7 +136,7 @@
             gap: 100px 50px;
         }
 
-        /* Card Elements */
+        /* --- Card Elements (Old) --- */
         .card-trigger {
             cursor: pointer;
             background: none;
@@ -194,7 +198,7 @@
 
         .badge { font-size: 9px; border: 1px solid var(--accent); padding: 2px 10px; letter-spacing: 1px; }
 
-        /* SOCIAL MATRIX (Brackets) */
+        /* --- Social Matrix (Old Brackets) --- */
         .social-matrix {
             display: flex;
             justify-content: center;
@@ -243,7 +247,7 @@
         .stat-value { font-size: 1.6rem; line-height: 1; color: var(--text); }
         .stat-name { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.5; margin-top: 5px; }
 
-        /* MODAL SYSTEM */
+        /* --- Modal System (Old) --- */
         #modal-overlay {
             position: fixed;
             top: 0;
@@ -342,7 +346,332 @@
             opacity: 0.4;
         }
 
-        /* HIGH-QUALITY IMAGE SOURCES */
+        /* --- Toggle Button --- */
+        .glass-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 14px 28px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .glass-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(201, 168, 76, 0.4);
+        }
+
+        .glass-toggle:active {
+            transform: translateY(0);
+        }
+
+        /* ================================================================
+           GLASS-ACTIVE OVERRIDES (New — toggled via .glass-active on body)
+           ================================================================ */
+        .glass-active {
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), inset 0 -1px 1px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Header — Glass */
+        .glass-active header {
+            border-left: none;
+            padding-left: clamp(2rem, 5vw, 3.5rem);
+            padding: clamp(2rem, 5vw, 3.5rem);
+            background: rgba(255, 255, 255, 0.03);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-active header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            border-radius: 24px 24px 0 0;
+        }
+
+        /* Entry Note — Glass */
+        .glass-active .entry-note {
+            border-left: none;
+            background: rgba(255, 255, 255, 0.04);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-active .entry-note::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            border-radius: 16px 16px 0 0;
+        }
+
+        /* Artwork Wrapper — Glass Frame */
+        .glass-active .artwork-wrapper {
+            background: rgba(255, 255, 255, 0.02);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-active .artwork-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 35%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            z-index: 2;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .glass-active .art-img {
+            border-radius: 20px;
+        }
+
+        @media (hover: hover) {
+            .glass-active .card-trigger:hover .artwork-wrapper {
+                border-color: rgba(201, 168, 76, 0.5);
+                box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), inset 0 -1px 1px rgba(0,0,0,0.3), 0 12px 40px rgba(0,0,0,0.5), 0 0 20px rgba(201,168,76,0.1);
+            }
+        }
+
+        /* Social Brackets — Glass Panels */
+        .glass-active .social-bracket {
+            background: rgba(255, 255, 255, 0.03);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+        }
+
+        /* Reset old bracket pseudo-elements for glass mode */
+        .glass-active .social-bracket::before,
+        .glass-active .social-bracket::after {
+            display: none;
+        }
+
+        .glass-active .social-bracket .right-bracket {
+            position: absolute;
+            top: 0; right: 0; width: 15px;
+            height: 100%;
+            border: 1px solid var(--accent);
+            border-left: none;
+            border-radius: 0 20px 20px 0;
+            transition: var(--transition);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Add left bracket via a new pseudo when in glass mode */
+        .glass-active .social-bracket .left-bracket {
+            position: absolute;
+            top: 0; left: 0; width: 15px;
+            height: 100%;
+            border: 1px solid var(--accent);
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+            transition: var(--transition);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glass-active .social-bracket:hover {
+            background: rgba(201, 168, 76, 0.05);
+            transform: translateY(-5px);
+            border-color: rgba(201, 168, 76, 0.4);
+        }
+
+        .glass-active .social-bracket:hover .left-bracket { width: 30px; }
+        .glass-active .social-bracket:hover .right-bracket { width: 30px; }
+
+        .glass-active .social-label { position: relative; z-index: 2; }
+        .glass-active .social-stats { position: relative; z-index: 2; }
+
+        /* Modal Overlay — Glass */
+        .glass-active #modal-overlay {
+            background: rgba(4, 4, 4, 0.6);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+        }
+
+        /* Modal Header — Glass Card */
+        .glass-active .modal-header {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-active .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Modal Story — Glass Card */
+        .glass-active .modal-story {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-active .modal-story::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Spotify Card — Glass Container */
+        .glass-active .spotify-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-active .spotify-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            border-radius: 20px 20px 0 0;
+            z-index: 1;
+        }
+
+        .glass-active .spotify-preview {
+            border: none;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Play Button — Glass + Accent */
+        .glass-active .play-btn {
+            background: rgba(201, 168, 76, 0.15);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            color: var(--accent);
+            border: 1px solid rgba(201, 168, 76, 0.4);
+            border-radius: 16px;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 8px 32px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-active .play-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .glass-active .play-btn:hover {
+            background: rgba(201, 168, 76, 0.25);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.15), 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(201,168,76,0.15);
+        }
+
+        /* Close Modal — Glass */
+        .glass-active .close-modal {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-active .close-modal:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(201, 168, 76, 0.5);
+        }
+
+        /* Footer — Glass Strip */
+        .glass-active footer {
+            padding: 40px 0;
+            margin-top: 40px;
+            opacity: 0.6;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Toggle button in glass mode */
+        .glass-active .glass-toggle {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px) url(#liquid-glass);
+            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            color: var(--accent);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* ================================================================
+           HIGH-QUALITY IMAGE SOURCES
+           ================================================================ */
         .art-primary { background-image: url('https://i.ibb.co/xKDvjJr9/image.jpg'); }
         .art-0001 { background-image: url('https://i.ibb.co/4RnbDL6R/image.jpg'); }
         .art-0002 { background-image: url('https://i.ibb.co/C57F7wNR/image.jpg'); }
@@ -353,10 +682,46 @@
             .primary-artwork { aspect-ratio: 1/1; }
             .container { padding: 50px 24px; }
             .social-bracket { width: 100%; min-width: unset; }
+            .glass-active header { padding: 1.5rem; }
+            .glass-active .modal-header, .glass-active .modal-story { padding: 1.5rem; }
+            .glass-active .spotify-card { padding: 12px; }
         }
     </style>
+    <base target="_blank">
+<base target="_blank">
 </head>
 <body>
+
+    <!-- LIQUID GLASS SVG FILTER PIPELINE -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+        <defs>
+            <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+                <!-- 1. Noise map for physical refraction -->
+                <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noiseMap" />
+
+                <!-- 2. Displacement map — bends background pixels for true refraction -->
+                <feDisplacementMap in="SourceGraphic" in2="noiseMap" scale="22" xChannelSelector="R" yChannelSelector="G" result="refracted" />
+
+                <!-- 3. Specular lighting — bright glossy rim on 3D glass edges -->
+                <feSpecularLighting in="noiseMap" surfaceScale="8" specularConstant="1.2" specularExponent="35" lighting-color="#ffffff" result="specular">
+                    <fePointLight x="-200" y="-200" z="300" />
+                </feSpecularLighting>
+
+                <!-- 4. Composite specular onto refracted image -->
+                <feComposite in="specular" in2="refracted" operator="in" result="rimLight" />
+                <feComposite in="rimLight" in2="refracted" operator="arithmetic" k1="0" k2="1" k3="0.6" k4="0" result="litGlass" />
+
+                <!-- 5. Subtle inner glow / caustic highlight -->
+                <feGaussianBlur in="litGlass" stdDeviation="0.5" result="softened" />
+
+                <!-- 6. Final blend -->
+                <feBlend in="softened" in2="litGlass" mode="screen" result="finalGlass" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- TOGGLE BUTTON -->
+    <button class="glass-toggle" id="glassToggle" onclick="toggleGlass()">Toggle Glass</button>
 
     <div id="texture-overlay"></div>
 
@@ -365,7 +730,7 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <h2 id="modal-title" class="modal-header"></h2>
             <p id="modal-story" class="modal-story"></p>
-            <div id="spotify-container" style="width: 100%;"></div>
+            <div id="spotify-container" class="spotify-card" style="width: 100%;"></div>
             <a id="modal-link" href="#" target="_blank" class="play-btn">▶ Play on Spotify</a>
         </div>
     </div>
@@ -388,7 +753,7 @@
             <button class="card-trigger primary-tape" onclick="openModal('primary')">
                 <div class="artwork-wrapper primary-artwork">
                     <div class="art-img art-primary"></div>
-                    <div style="position: absolute; bottom: 25px; left: 25px; right: 25px;">
+                    <div style="position: absolute; bottom: 25px; left: 25px; right: 25px; z-index: 3;">
                         <span class="meta" style="color:#fff;">Press Kit / Musical CV</span>
                         <h2 class="title" style="color:#fff; font-size: clamp(1.6rem, 5vw, 2.8rem);">CORRUPTED TAPES (L'AMOUR DE MA VIE)</h2>
                     </div>
@@ -400,7 +765,7 @@
                 <button class="card-trigger" onclick="openModal('0001')">
                     <div class="artwork-wrapper archive-artwork">
                         <div class="art-img art-0001"></div>
-                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; font-size: 8px; opacity: 0.15; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond'; line-height: 1.4; color: #fff;">
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 15px; font-size: 8px; opacity: 0.15; pointer-events: none; overflow: hidden; font-family: 'Cormorant Garamond'; line-height: 1.4; color: #fff; z-index: 3;">
                             MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES MY AFFECTION NEVER ACTUALLY LEAVES
                         </div>
                     </div>
@@ -439,6 +804,8 @@
 
         <section class="social-matrix">
             <a href="https://github.com/AzimSoufiane" target="_blank" class="social-bracket">
+                <div class="left-bracket"></div>
+                <div class="right-bracket"></div>
                 <span class="social-label">Developer Protocol</span>
                 <div class="social-stats">
                     <div class="stat-item">
@@ -453,6 +820,8 @@
             </a>
 
             <a href="https://www.instagram.com/sf1ontrack/" target="_blank" class="social-bracket">
+                <div class="left-bracket"></div>
+                <div class="right-bracket"></div>
                 <span class="social-label">Visual Identity</span>
                 <div class="social-stats">
                     <div class="stat-item">
@@ -479,6 +848,13 @@
         const texture = document.getElementById('texture-overlay');
         const phrase = "MY AFFECTION NEVER ACTUALLY LEAVES • ";
         texture.innerText = phrase.repeat(500);
+
+        // Toggle Glass Effect
+        function toggleGlass() {
+            document.body.classList.toggle('glass-active');
+            const btn = document.getElementById('glassToggle');
+            btn.innerText = document.body.classList.contains('glass-active') ? 'Disable Glass' : 'Toggle Glass';
+        }
 
         // Modal Data
         const data = {
