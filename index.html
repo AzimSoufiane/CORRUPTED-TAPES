@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CORRUPTED TAPES — SF1ONTRACK</title>
+    <title>CORRUPTED TAPES COLLECTION — SF1ONTRACK</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,6 +86,14 @@
             margin-bottom: 2rem;
         }
 
+        h1 .small-part {
+            display: block;
+            font-size: clamp(1.25rem, 4vw, 2.2rem);
+            letter-spacing: -1px;
+            opacity: 0.85;
+            margin-top: 0.25rem;
+        }
+
         .intro-text {
             max-width: 600px;
             font-family: 'Cormorant Garamond', serif;
@@ -93,6 +101,27 @@
             font-size: clamp(1.2rem, 3vw, 1.5rem);
             opacity: 0.7;
             line-height: 1.4;
+        }
+
+        .entry-note {
+            margin-bottom: 2rem;
+            padding: 18px 24px;
+            border-left: 1px solid var(--accent);
+            background: rgba(255, 255, 255, 0.04);
+            color: #f7f2ea;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        .entry-note.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Grid */
@@ -342,9 +371,10 @@
     </div>
 
     <div class="container">
+        <div id="entry-note" class="entry-note">Editor's Note : You already know this is about you.</div>
         <header>
-            <span class="brand-sub">SF1ONTRACK Presents</span>
-            <h1>CORRUPTED<br>TAPES</h1>
+            <span class="brand-sub">SF1ONTRACK Presents :</span>
+            <h1>CORRUPTED<br>TAPES<br> <span class="small-part">COLLECTION</span></h1>
             <p class="intro-text">
                 A personal music curation project — documenting the unfinished.
                 Five chapters. Four graveyards and one love story that never got its ending.
@@ -514,7 +544,16 @@
                 document.getElementById('gh-followers').innerText = "5";
             }
         }
+
+        function showEntryNote() {
+            const note = document.getElementById('entry-note');
+            if (!note) return;
+            note.classList.add('visible');
+            setTimeout(() => note.classList.remove('visible'), 4200);
+        }
+
         fetchGitHubStats();
+        showEntryNote();
     </script>
 </body>
 </html>
