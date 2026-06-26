@@ -26,11 +26,20 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background-color: var(--bg);
+            min-height: 100vh;
+            margin: 0;
             color: var(--text);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(circle at top left, rgba(190, 120, 255, 0.22), transparent 18%),
+                radial-gradient(circle at top right, rgba(81, 204, 255, 0.16), transparent 18%),
+                radial-gradient(circle at bottom left, rgba(255, 151, 120, 0.14), transparent 24%),
+                linear-gradient(135deg, #070507 0%, #0c0812 40%, #180c28 100%);
+            background-attachment: fixed;
+            background-size: cover;
         }
 
         /* Background Text Texture */
@@ -108,24 +117,32 @@
 
         /* --- Entry Note (Old) --- */
         .entry-note {
-            margin-bottom: 2rem;
-            padding: 18px 24px;
-            border-left: 1px solid var(--accent);
-            background: rgba(255, 255, 255, 0.04);
+            position: fixed;
+            top: 36px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-12px);
+            z-index: 2;
+            width: min(420px, calc(100% - 48px));
+            padding: 22px 26px;
+            border-radius: 24px;
+            background-color: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 24px 64px rgba(0, 0, 0, 0.22);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             color: #f7f2ea;
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+            font-size: clamp(0.95rem, 1.2vw, 1.05rem);
             letter-spacing: 2px;
             text-transform: uppercase;
             line-height: 1.4;
             opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.45s ease, transform 0.45s ease;
+            transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.45s ease;
         }
 
         .entry-note.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(-50%) translateY(0);
         }
 
         /* --- Grid --- */
@@ -388,15 +405,13 @@
         /* Header — Glass */
         .glass-active header {
             border-left: none;
-            padding-left: clamp(2rem, 5vw, 3.5rem);
             padding: clamp(2rem, 5vw, 3.5rem);
-            background: rgba(255, 255, 255, 0.03);
-            background-blend-mode: luminosity;
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             position: relative;
             overflow: hidden;
         }
@@ -404,7 +419,7 @@
         .glass-active header::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 40%;
+            top: 0; left: 0; right: 0; height: 38%;
             background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 100%);
             pointer-events: none;
             border-radius: 24px 24px 0 0;
@@ -413,13 +428,12 @@
         /* Entry Note — Glass */
         .glass-active .entry-note {
             border-left: none;
-            background: rgba(255, 255, 255, 0.04);
-            background-blend-mode: luminosity;
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 100);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            border-radius: 18px;
             box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
             position: relative;
             overflow: hidden;
         }
@@ -427,21 +441,20 @@
         .glass-active .entry-note::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 50%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%);
+            top: 0; left: 0; right: 0; height: 42%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 100%);
             pointer-events: none;
-            border-radius: 16px 16px 0 0;
+            border-radius: 18px 18px 0 0;
         }
 
         /* Artwork Wrapper — Glass Frame */
         .glass-active .artwork-wrapper {
-            background: rgba(255, 255, 255, 0.02);
-            background-blend-mode: luminosity;
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .glass-active .artwork-wrapper::before {
@@ -467,13 +480,12 @@
 
         /* Social Brackets — Glass Panels */
         .glass-active .social-bracket {
-            background: rgba(255, 255, 255, 0.03);
-            background-blend-mode: luminosity;
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             overflow: hidden;
         }
 
@@ -523,15 +535,15 @@
         /* Modal Overlay — Glass */
         .glass-active #modal-overlay {
             background: rgba(4, 4, 4, 0.6);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         /* Modal Header — Glass Card */
         .glass-active .modal-header {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             box-shadow: var(--glass-shadow);
@@ -552,9 +564,9 @@
 
         /* Modal Story — Glass Card */
         .glass-active .modal-story {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             box-shadow: var(--glass-shadow);
@@ -575,9 +587,9 @@
 
         /* Spotify Card — Glass Container */
         .glass-active .spotify-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             box-shadow: var(--glass-shadow);
@@ -600,14 +612,14 @@
             border: none;
             display: block;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
         /* Play Button — Glass + Accent */
         .glass-active .play-btn {
-            background: rgba(201, 168, 76, 0.15);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(201, 168, 76, 0.18);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: var(--accent);
             border: 1px solid rgba(201, 168, 76, 0.4);
             border-radius: 16px;
@@ -634,9 +646,9 @@
 
         /* Close Modal — Glass */
         .glass-active .close-modal {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
         }
@@ -651,9 +663,9 @@
             padding: 40px 0;
             margin-top: 40px;
             opacity: 0.6;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
             box-shadow: var(--glass-shadow);
@@ -661,9 +673,9 @@
 
         /* Toggle button in glass mode */
         .glass-active .glass-toggle {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px) url(#liquid-glass);
-            -webkit-backdrop-filter: blur(20px) url(#liquid-glass);
+            background-color: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: var(--accent);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
@@ -925,7 +937,7 @@
             const note = document.getElementById('entry-note');
             if (!note) return;
             note.classList.add('visible');
-            setTimeout(() => note.classList.remove('visible'), 4200);
+            setTimeout(() => note.classList.remove('visible'), 1000);
         }
 
         fetchGitHubStats();
